@@ -123,3 +123,27 @@ main{isolation:isolate}
 .event-panel{border:1px solid #f0d99c;outline:1px solid #c6a15b;outline-offset:10px;box-shadow:0 20px 65px #18040a66,inset 0 0 0 5px #c6a15b1e,inset 0 0 0 8px #c6a15b30}
 .family-card{box-shadow:inset 0 0 0 5px #c09a5520,inset 0 0 0 8px #c09a5524,0 12px 35px #6b4b2410}
 @media(max-width:560px){.section-pad:before{inset:15px}.section-pad:after{bottom:25px}.section-content:before,.section-content:after{top:-29px;font-size:25px}.crest{width:min(84vw,300px)}}
+
+
+/* JEWELLED BURGUNDY PALACE FINISH — inspired by the supplied invitation reference */
+:root{--wine:#390612;--wine-deep:#1d0309;--wine-mid:#5b1024;--wine-light:#781d35;--gold:#c49a50;--gold-bright:#f5dfa2;--gold-pale:#fff0c7;--ruby:#8f1230;--ivory:#fbf2e2}
+body{background:#1d0309}
+.burgundy,.opening{background:radial-gradient(ellipse at 50% 42%,#68162b 0%,#450916 48%,#22040b 100%)}
+.opening{overflow:hidden}
+.opening:before{inset:10px;border:1px solid #f2d48c;box-shadow:inset 0 0 0 3px #6c3d1d,inset 0 0 0 5px #f2d48c88,inset 0 0 0 10px #c293481f,0 0 28px #d4a34d35}
+.opening:after{inset:18px;border:1px solid #e6c477a8;box-shadow:inset 0 0 0 2px #e6c47722;pointer-events:none}
+.opening-inner:before{border:1px solid #e4bd6d;box-shadow:0 0 0 4px #b17d351f,0 0 0 9px #e4bd6d18,inset 0 0 45px #e4bd6d16}
+.crest{filter:drop-shadow(0 5px 5px #100106) drop-shadow(0 0 15px #d7a84d66)}
+.crest svg{overflow:visible}
+.crest-caption{color:#f8e6b6;text-shadow:0 2px 8px #160208,0 0 14px #d3a34e66}
+.corner-ornament{color:#f1d18a;text-shadow:0 2px 4px #170309,0 0 15px #d9a94c88}
+.section-pad:before{inset:17px;border:1px solid #c89b50;box-shadow:inset 0 0 0 3px #4a1a1d,inset 0 0 0 5px #d5ae6b80,inset 0 0 0 10px #d5ae6b18,0 0 0 1px #5b321c}
+.section-pad:after{content:"✥  ❧  ✥";text-shadow:0 1px 5px #5c3518}
+.ivory.section-pad:before{border-color:#9e7135;box-shadow:inset 0 0 0 3px #f3e5c9,inset 0 0 0 5px #a77b3e88,inset 0 0 0 10px #a77b3e18}
+.section-content:before,.section-content:after{color:#d4ad65;text-shadow:0 1px 5px #4b1b12}
+.family-card,.event-panel,.count-grid div{border:1px solid #bd914c;box-shadow:inset 0 0 0 3px #d8b56b1c,0 12px 30px #24060d24}
+.event-panel{background:linear-gradient(145deg,#26050d,#5b1024 52%,#2b050e);border:1px solid #e0bd70;box-shadow:inset 0 0 0 4px #d8b56b20,inset 0 0 0 8px #d8b56b10,0 18px 45px #16020855}
+.petal{background:linear-gradient(135deg,#fff0c9 0%,#c99a4b 42%,#8c1730 100%);border:1px solid #f5df9c88;filter:drop-shadow(0 0 5px #d7ad5b88)}
+.enter-button{border:1px solid #f1d28a;background:linear-gradient(135deg,#6b142b,#310610);box-shadow:inset 0 0 0 3px #d6aa5b22,0 8px 24px #15020866;color:#ffedbd}
+.music-toggle{border:1px solid #e7c77e;background:linear-gradient(135deg,#641329ed,#26040bee);box-shadow:inset 0 0 0 2px #d4aa5b22,0 5px 20px #16040a88}
+@media(max-width:560px){.section-pad:before{inset:12px}.opening:before{inset:9px}.opening:after{inset:16px}}
