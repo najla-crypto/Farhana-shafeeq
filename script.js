@@ -3,7 +3,6 @@ const audio = document.getElementById('weddingMusic');
 const openButton = document.getElementById('openInvitation');
 const musicToggle = document.getElementById('musicToggle');
 
-// Start music after the visitor taps Open Invitation
 async function startMusic() {
   try {
     await audio.play();
@@ -21,7 +20,6 @@ openButton.addEventListener('click', async () => {
   });
 });
 
-// Music play and pause button
 musicToggle.addEventListener('click', async () => {
   if (audio.paused) {
     await startMusic();
@@ -31,7 +29,6 @@ musicToggle.addEventListener('click', async () => {
   }
 });
 
-// Reveal each section as the visitor scrolls
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -45,7 +42,6 @@ document.querySelectorAll('.reveal').forEach(section => {
   revealObserver.observe(section);
 });
 
-// Live wedding countdown
 const target = new Date('2026-12-27T12:00:00+05:30').getTime();
 
 function updateCountdown() {
@@ -62,6 +58,7 @@ function updateCountdown() {
     const value = Math.floor(remaining / size);
     document.getElementById(id).textContent =
       String(value).padStart(2, '0');
+
     remaining %= size;
   });
 }
@@ -69,7 +66,6 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Floating golden petals
 const petalLayer = document.querySelector('.petal-layer');
 
 function makePetal() {
@@ -79,6 +75,7 @@ function makePetal() {
 
   const petal = document.createElement('span');
   petal.className = 'petal';
+
   petal.style.left = Math.random() * 100 + 'vw';
 
   petal.style.setProperty(
