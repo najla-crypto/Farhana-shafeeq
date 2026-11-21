@@ -1,25 +1,100 @@
-const audio=document.getElementById('nasheed');
-const enter=document.getElementById('enterButton');
-const musicToggle=document.getElementById('musicToggle');
-const musicLabel=document.getElementById('musicLabel');
-const opening=document.querySelector('.opening');
-let musicStarted=false;
-function startExperience(){
-  opening.classList.add('started');
-  musicToggle.hidden=false;
-  if(!musicStarted){audio.volume=.72;audio.play().then(()=>{musicStarted=true;musicToggle.classList.remove('paused');musicLabel.textContent='Music on'}).catch(()=>{musicToggle.classList.add('paused');musicLabel.textContent='Play music'});}
-  document.querySelector('.intro').scrollIntoView({behavior:'smooth'});
+
+const audio = document.getElementById('weddingMusic');
+const openButton = document.getElementById('openInvitation');
+const musicToggle = document.getElementById('musicToggle');
+
+// Start music after the visitor taps Open Invitation
+async function startMusic() {
+  try {
+    await audio.play();
+    musicToggle.classList.add('playing');
+    musicToggle.textContent = '♫';
+  } catch (error) {
+    musicToggle.classList.remove('playing');
+  }
 }
-enter.addEventListener('click',startExperience);
-musicToggle.addEventListener('click',()=>{if(audio.paused){audio.play().then(()=>{musicToggle.classList.remove('paused');musicLabel.textContent='Music on'}).catch(()=>{});}else{audio.pause();musicToggle.classList.add('paused');musicLabel.textContent='Music off';}});
-const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}});},{threshold:.16});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-// Start the opening reveal on page load; later sections reveal only as they enter view.
-window.addEventListener('load',()=>{setTimeout(()=>opening.classList.add('started'),180);});
-// A restrained number of tiny gold petals drift across the page.
-const field=document.querySelector('.petal-field');
-for(let i=0;i<13;i++){const p=document.createElement('span');p.className='petal';p.style.left=(Math.random()*100)+'%';p.style.animationDuration=(13+Math.random()*15)+'s';p.style.animationDelay=(-Math.random()*24)+'s';p.style.opacity=(.22+Math.random()*.32).toFixed(2);p.style.transform=`scale(${.55+Math.random()*.8})`;field.appendChild(p);}
-// Countdown uses Kochi local time (India Standard Time, UTC+05:30).
-const target=new Date('2026-12-27T12:00:00+05:30').getTime();
-function updateCountdown(){let diff=Math.max(0,target-Date.now());const d=Math.floor(diff/86400000);diff%=86400000;const h=Math.floor(diff/3600000);diff%=3600000;const m=Math.floor(diff/60000);const s=Math.floor((diff%60000)/1000);document.getElementById('days').textContent=String(d).padStart(3,'0');document.getElementById('hours').textContent=String(h).padStart(2,'0');document.getElementById('minutes').textContent=String(m).padStart(2,'0');document.getElementById('seconds').textContent=String(s).padStart(2,'0');}
-updateCountdown();setInterval(updateCountdown,1000);
+
+openButton.addEventListener('click', async () => {
+  await startMusic();
+  document.querySelector('.intro').scrollIntoView({
+    behavior: 'smooth'
+  });
+});
+
+// Music play and pause button
+musicToggle.addEventListener('click', async () => {
+  if (audio.paused) {
+    await startMusic();
+  } else {
+    audio.pause();
+    musicToggle.classList.remove('playing');
+  }
+});
+
+// Reveal each section as the visitor scrolls
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.14 });
+
+document.querySelectorAll('.reveal').forEach(section => {
+  revealObserver.observe(section);
+});
+
+// Live wedding countdown
+const target = new Date('2026-12-27T12:00:00+05:30').getTime();
+
+function updateCountdown() {
+  let remaining = Math.max(0, target - Date.now());
+
+  const units = [
+    ['days', 86400000],
+    ['hours', 3600000],
+    ['minutes', 60000],
+    ['seconds', 1000]
+  ];
+
+  units.forEach(([id, size]) => {
+    const value = Math.floor(remaining / size);
+    document.getElementById(id).textContent =
+      String(value).padStart(2, '0');
+    remaining %= size;
+  });
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Floating golden petals
+const petalLayer = document.querySelector('.petal-layer');
+
+function makePetal() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const petal = document.createElement('span');
+  petal.className = 'petal';
+  petal.style.left = Math.random() * 100 + 'vw';
+
+  petal.style.setProperty(
+    '--drift',
+    (Math.random() * 160 - 80) + 'px'
+  );
+
+  petal.style.animationDuration =
+    (8 + Math.random() * 8) + 's';
+
+  petal.style.opacity =
+    (0.25 + Math.random() * 0.45).toFixed(2);
+
+  petalLayer.appendChild(petal);
+
+  setTimeout(() => petal.remove(), 17000);
+}
+
+setInterval(makePetal, 850);
